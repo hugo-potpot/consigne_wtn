@@ -41,4 +41,14 @@ class DiscordBot(commands.Bot):
                 if message.content.startswith("!"):
                     await self.process_commands(message)
 
+        @self.command(pass_context=True)
+        async def add_consigne(ctx, consigne):
+            print(len(consigne))
+            if consigne[0:49] != "https://sell.wethenew.com/fr/consignment/product/":
+                await ctx.send("Lien invalide")
+            else:
+                self.database.add_consigne(ctx.author.id, consigne)
+                await ctx.send("Consigne ajoutée")
+
+
 
